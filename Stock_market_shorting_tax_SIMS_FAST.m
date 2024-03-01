@@ -116,7 +116,7 @@ else
         [Beliefs_sort,I] = sort(Beliefs);  
         n_adj = n(I);
         
-%Sort beliefs when there are ties (uncomment to use, not essential)
+        %Sort beliefs when there are ties (uncomment to use, not essential)
         %if length(unique(Beliefs)) ~= H
         %    run Stock_market_shorting_sort_insert
         %end
