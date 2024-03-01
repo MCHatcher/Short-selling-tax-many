@@ -11,7 +11,7 @@ r = 0.1; a = 1;
 betta = 2; 
 dbar = 10; sigma = 1; Zbar = 0.1;  
 pf = (dbar - a*sigma^2*Zbar)/r; %Fundamental price
-Tax = 0.2; %Short-selling tax 
+Tax = 0.3; %Short-selling tax 
 Tax_add = (1+r)*Tax/(a*sigma^2);
 T = 100;  %no. of periods
 No_Tax = 0; %Set No_Tax = 1 to simulate without short-selling tax (or set Tax = 0); 
@@ -127,15 +127,8 @@ else
    Demand_star = (Beliefs_sort + a*sigma^2*Zbar - (1+r)*xstar)/(a*sigma^2);
    Demand_star(Demand_star<0 & Demand_star+Tax_add >=0) = 0;
    
-   %Update k_init (uncomment to use)
-   %if find(Demand_star==0) > 0
-   %     zero = find(Demand_star==0);
-   %     x_update = ( n_adj(1:min(zero)-1)*Beliefs_sort(1:min(zero)-1) + n_adj(max(zero)+1:end)*Beliefs_sort(max(zero)+1:end) + (1+r)*Tax*sum(n_adj(1:min(zero)-1))  - sum(n_adj(min(zero):max(zero)))*a*sigma^2*Zbar  ) / ( (1+r)*(1-sum(n_adj(min(zero):max(zero)))) );
-   %else
-   %     x_update = xstar + sum(n_adj(1:sum(Demand_star<0)))*Tax;
-   %end
-   %Demand_star = (Beliefs_sort + a*sigma^2*Zbar - (1+r)*x_update)/(a*sigma^2);
-   %Demand_star(Demand_star<0 & Demand_star+Tax_add >=0) = 0;
+   %Stock_market_shorting_tax_k_update 
+   %Uncomment to use
    
    k_init = sum(Demand_star<=0);
 
@@ -220,11 +213,11 @@ end
 %---------------
 %Plot figures
 %--------------
-%Time = 1:T;
-%x_plot = [x0; x]; Time_plot = [0; Time']; 
-%figure(1)
-%hold on, subplot(2,2,2), plot(Time_plot,x_plot,'--k','LineWidth',1), hold on, 
-%axis([-inf,inf,-inf,inf]), title('Scenario 2'), ylabel('Price deviation \it{x}'), xlabel('Time')
+Time = 1:T;
+x_plot = [x0; x]; Time_plot = [0; Time']; 
+figure(1)
+hold on, subplot(2,2,2), plot(Time_plot,x_plot,'--k','LineWidth',1), hold on, 
+axis([-inf,inf,-inf,inf]), title('Scenario 2'), ylabel('Price deviation \it{x}'), xlabel('Time')
 
 
      
