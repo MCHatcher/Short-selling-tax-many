@@ -1,4 +1,6 @@
 %Stock_market_shorting_tax_k_update
+%To be used with SIMS_FAST and SIMS_FAST_insert files
+%Last updated: March 9, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
 
    if find(Demand_star==0) > 0
         zero = find(Demand_star==0);

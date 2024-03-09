@@ -1,6 +1,6 @@
 %Stock_market_shorting_disp_insert 
 %Insert for 'Stock_market_shorting_tax_SIMS_FAST.m' and 'Stock_market_shorting_tax_SIMS_FAST_insert.m'
-%Last updated: Feb 14, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
+%Last updated: March 9, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
 
        for m = k_init:length(Beliefs_sort)-1
 

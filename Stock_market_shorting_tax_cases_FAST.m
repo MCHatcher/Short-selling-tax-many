@@ -1,5 +1,5 @@
-%Case of 2(iii) in Proosition 1: both short and zero position types 
-%Last updated: Jan 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
+%Case of 2(iii) in Proposition 1: both short and zero position types 
+%Last updated: March 9, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
 
 for k = k_init:length(Beliefs_sort)-1
 
@@ -24,17 +24,21 @@ for k = k_init:length(Beliefs_sort)-1
             k_tot(t) = k;  k_tax(t) = k_lower-1;
             x(t) = ( sum_Bel + (1+r)*Tax*sum_n_tilde2 - a*sigma^2*Zbar*sum_n_tilde ) / ( (1+r)*(1-sum_n_tilde) ); 
             AllElse(t) = 1;
+            break
 
          end
 
-         if AllElse(t) == 1
-             break
-         end
+         %if AllElse(t) == 1
+         %    break
+         %end
 
     end
 
-end
+    if AllElse(t) == 1
+        break
+    end
 
+end
 
 
    

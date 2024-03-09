@@ -1,5 +1,5 @@
 %Stock market model with short-selling tax and endogenous shares: bifurcation diagrams 
-%Last updated: Feb 15, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
+%Last updated: March 9, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
 
 clear, clc, %close all; 
 
@@ -7,18 +7,18 @@ clear, clc, %close all;
 %Parameter values
 %------------------
 H = 20; 
-window = 50;  %no. of terminal values to plot
-T = 2350 + window;  %no. of periods
-%n_betta = 100; 
-n_betta = 82;
+window = 80;  %no. of terminal values to plot
+T = 3120 + window;  %no. of periods  2800
+n_betta = 98; %98  88
 min_betta = 1; max_betta = 5;
-n_sim = 20;
+n_sim = 30;
 
+%Intensity of choice
 betta_vec = linspace(min_betta,max_betta,n_betta);
 
 %Initial values and shocks
-x_lower = -4;  x_upper = -0.01;
-rng(5), x_init = x_lower + rand(n_sim,1)*(x_upper-x_lower);
+x_lower = -3.999;  x_upper = -0.001;
+x_init = linspace(x_lower,x_upper,n_sim);
 shock = zeros(T,1);  %no dividend shocks
 
 %Predictors
@@ -26,12 +26,12 @@ b = zeros(H,1); C = b; g = b; g(ceil(H/2)+1:H) = 1 + linspace(0,0.4,H-ceil(H/2))
 b(1:ceil(H/2)) = -0.2 + linspace(0,0.4,ceil(H/2)); C(1:ceil(H/2)) = 1-abs(b(1:ceil(H/2))); 
 
 %No heterogeneity (two types)
-%b = zeros(H,1); C = b; g = b; g(ceil(H/2)+1:H) = 1.2; C(1:ceil(H/2)) = 1-abs(b(1:ceil(H/2))); 
+b = zeros(H,1); C = b; g = b; g(ceil(H/2)+1:H) = 1.2; C(1:ceil(H/2)) = 1-abs(b(1:ceil(H/2))); 
 
 %----------------------
 %Preallocate matrices
 %----------------------
-brk = zeros(n_sim,1); C1 = NaN(n_sim,1); C11 = C1; C12 = C1; percent = NaN(n_betta,1); 
+C1 = NaN(n_sim,1); C11 = C1; C12 = C1; percent = NaN(n_betta,1); 
 x_stack = NaN(window,n_sim); x_plot = NaN(window*n_sim,1); 
 
 %------------------
@@ -44,11 +44,11 @@ Naive = 0;   %runs naive algorithm (Algo 1): starts from 1 non-buyer
     for v = 1:length(betta_vec)
 
         betta = betta_vec(v);
+        brk = zeros(n_sim,1);
 
             for s = 1:n_sim
 
                 x0 = x_init(s); xlag = x0;
-
                 n_init = 1/H*ones(1,H);
 
                 Stock_market_shorting_tax_SIMS_FAST_insert
@@ -89,16 +89,16 @@ Naive = 0;   %runs naive algorithm (Algo 1): starts from 1 non-buyer
     end
 
 %Final accuracy checks
-max(Check1_max)
-max(Check11_max)
-max(Bind_max)
+MaxCheck1 = max(Check1_max)
+MaxCheck11 = max(Check11_max)
+MaxBind = max(Bind_max)
 
 %Bifurcation plotter
 figure(1)
 subplot(1,2,1), 
 hold on, xlabel('Intensity of choice \beta'), ylabel('Price deviation \it{x}')
-axis([-inf,inf,-2.5,2.5])
-plot(betta_vec,x_plot,'o','MarkerSize',2,'Color','k')  %'k' [0.5 0.5 0.5]
+axis([-inf,inf,-2.5,4.5])
+plot(betta_vec,x_plot,'o','MarkerSize',2,'Color','k')  %'k' [0.425 0.425 0.425]
 
 %for v=1:n_betta
 %    plot(betta_vec(v),x_plot(:,v),'o','MarkerSize',2.2,'Color','k')

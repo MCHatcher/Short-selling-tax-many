@@ -7,6 +7,7 @@
            [Beliefs_sort,~,rnk] = unique(Beliefs,'sorted');  %Sorting and ranking        
             
             n_adj = NaN(1,max(rnk));
+
             for h=1:max(1,max(rnk))
                 V_00 = zeros(1,H);
                 V_00(rnk == h) = 1;
