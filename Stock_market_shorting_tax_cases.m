@@ -1,5 +1,5 @@
 %Case of 2(iii) in Proosition 1: both short and zero position types 
-%Last updated: Jan 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
+%Last updated: March 9, 2024. Written by Michael Hatcher (m.c.hatcher@soton.ac.uk)
 
 for k = k_init:length(Beliefs_sort)-1
 
@@ -27,10 +27,10 @@ for k = k_init:length(Beliefs_sort)-1
 
          end
 
-         if AllElse(t) == 1
-             break
-         end
+    end
 
+    if AllElse(t) == 1
+        break
     end
 
 end
